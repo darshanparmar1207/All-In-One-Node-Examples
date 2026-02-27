@@ -77,7 +77,8 @@ function isLoggedIn(req, res, next) {
            req.user = data
            next()
         }
-    }
+}
+
 
 
 app.listen(3000)
