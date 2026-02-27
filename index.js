@@ -15,6 +15,10 @@ app.get('/', (req, res) => {
     res.render('index')
 });
 
+app.get('/profiles', (req, res) => {
+    res.render('profiles')
+});
+
 app.get('/login', (req, res) => {
     res.render('login')
 });
