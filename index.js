@@ -15,17 +15,21 @@ app.get('/', (req, res) => {
     res.render('index')
 });
 
-app.get('/profiles', (req, res) => {
-    res.render('profiles')
-});
 
 app.get('/login', (req, res) => {
     res.render('login')
 });
 
-app.get('/profile', isLoggedIn, (req, res) => {
-    console.log(req.user)
-    res.render('login')
+app.get('/profile', isLoggedIn,  async (req, res) => {
+    let user = await userModel.findOne({email: req.user.email})
+    console.log(user)
+    res.render('profile', {user})
+});
+
+app.get('/profile', isLoggedIn,  async (req, res) => {
+    let user = await userModel.findOne({email: req.user.email})
+    console.log(user)
+    res.render('profile', {user})
 });
 
 // Create Account
@@ -62,8 +66,13 @@ app.post('/login', async (req, res) => {
     if(!user) return res.status(500).send('Something went wrong')
 
     bcrypt.compare(password, user.password, (err, result) => {
-        if(result) res.status(200).send('Login successfully')
-        else res.redirect('login').send('Invalid credentials')
+        if(result) 
+            {
+                let token = jwt.sign({email : email, userid: user._id}, "secretkey",)
+                res.cookie("token", token)
+                res.status(200).redirect('/profile')
+            }
+        else res.redirect('/login')
     })
 })
 
@@ -75,7 +84,7 @@ app.get('/logout', (req, res) => {
 
 // middleware to check if user is authenticated or not
 function isLoggedIn(req, res, next) {
-    if(req.cookies.token === "") res.send('You are not authenticated') 
+    if(req.cookies.token === "") res.redirect('/login') 
         else {
            let data = jwt.verify(req.cookies.token, "secretkey")
            req.user = data
