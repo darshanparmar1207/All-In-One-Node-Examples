@@ -28,27 +28,22 @@
       <div class="posts mt-20">
         <h3 class="text-2xl text-zinc-400">Your Posts</h3>
         <div class="postcontainer">
-          <div class="post w-full md:w-2/3 mb-2 bg-zinc-700 p-5 rounded-xl shadow-lg mt-5">
-            <h4 class="text-blue-400 font-semibold mb-2">@someone_username</h4>
-            <p class="text-zinc-200">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            </p>
-            <div class="btns flex">
-                <a class="text-blue-500 mt-5" href="">Like</a>
-                <a class="text-zinc-600 mt-5 ml-5" href="">Edit</a>
-            </div>
-          </div> 
+          <% user.posts.reverse().forEach(function(post){ %>
 
           <div class="post w-full md:w-2/3 mb-2 bg-zinc-700 p-5 rounded-xl shadow-lg mt-5">
-            <h4 class="text-blue-400 font-semibold mb-2">@someone_username</h4>
+            <h4 class="text-blue-400 font-semibold mb-2">@<%= user.name %></h4>
             <p class="text-zinc-200">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              <%= post.content %>
             </p>
-            <div class="btns flex">
-                <a class="text-blue-500 mt-5" href="">Like</a>
-                <a class="text-zinc-600 mt-5 ml-5" href="">Edit</a>
+
+            <div class="btns flex gap-5 mt-5">
+              <a class="text-blue-500" href="">Like</a>
+              <a class="text-zinc-400" href="">Edit</a>
             </div>
-          </div> 
+          </div>
+
+          <% }) %>
+          %>
         </div>
       </div>
     </div>
