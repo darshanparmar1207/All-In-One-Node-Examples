@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini Project</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body>
+  <div class="w-full min-h-screen bg-zinc-800 text-white p-10 flex gap-10">
+
+    <!-- LEFT SIDE (Profile Info) -->
+    <div class="w-full md:w-1/2">
+
+      <div class="w-full flex justify-end">
+        <a class="bg-red-500 rounded-md px-3 py-2 mb-5 inline-block" href="/logout">Logout</a>
+      </div>
+      <h3 class="mb-3">You can Edit a Post</h3>
+      <form action="/post" method="POST">
+        <textarea placeholder="What's on your mind ? " class=" block p-3 w-full bg-zinc-700 text-white rounded-md" rows="4" name="content"></textarea>
+        <input class="px-2 w-40 py-2 bg-blue-500 text-white block rounded-md mt-3" type="submit" value="Create Post" name="Create Post">
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>

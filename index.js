@@ -15,7 +15,6 @@ app.get('/', (req, res) => {
     res.render('index')
 });
 
-
 app.get('/login', (req, res) => {
     res.render('login')
 });
@@ -23,6 +22,31 @@ app.get('/login', (req, res) => {
 app.get('/profile', isLoggedIn,  async (req, res) => {
     let user = await userModel.findOne({email: req.user.email}).populate('posts')
     res.render('profile', {user})
+});
+
+// Like Post
+app.get('/like/:id', isLoggedIn, async (req, res) => {
+    let post = await Postmodel.findById(req.params.id);
+    let userId = req.user.userid;
+
+    // agar like nahi hai to add karo
+    if (post.likes.indexOf(userId) === -1) {
+        post.likes.push(userId);
+    } 
+    // agar like hai to remove karo
+    else {
+        post.likes.splice(post.likes.indexOf(userId), 1);
+    }
+
+    await post.save();
+    res.redirect('/profile');
+});
+
+// Edit Post
+app.get('/edit/:id', isLoggedIn, async (req, res) => {
+  let post = await Postmodel.findById(req.params.id).populate('user');
+
+  res.render('edit')
 });
 
 // Create Post
